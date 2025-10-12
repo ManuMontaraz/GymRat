@@ -1,0 +1,335 @@
+[
+    {
+        "id": 1,
+        "title": "exercise_bicepCurl",
+        "muscle": "biceps",
+        "category": "pull",
+        "equipment": ["barbell", "dumbbell", "machine", "cable", "band"],
+        "position": ["lying", "incline", "stand", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 2,
+        "title": "exercise_row",
+        "muscle": "back",
+        "category": "pull",
+        "equipment": ["multipower", "barbell", "dumbbell", "machine", "cable", "band"],
+        "position": ["lying", "stand", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 3,
+        "title": "exercise_latPulldown",
+        "muscle": "back",
+        "category": "pull",
+        "equipment": ["machine", "cable", "band"],
+        "position": ["stand", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 4,
+        "title": "exercise_pullUps",
+        "muscle": "back",
+        "category": "pull",
+        "equipment": ["machine", "bodyweight"],
+        "position": ["hanging"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 5,
+        "title": "exercise_facePull",
+        "muscle": "deltoids",
+        "category": "pull",
+        "equipment": ["cable", "band"],
+        "position": ["stand", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 6,
+        "title": "exercise_uprightRow",
+        "muscle": "deltoids",
+        "category": "pull",
+        "equipment": ["barbell", "dumbbell", "machine", "cable", "band"],
+        "position": ["stand", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 7,
+        "title": "exercise_reverseFlyes",
+        "muscle": "deltoids",
+        "category": "pull",
+        "equipment": ["dumbbell", "machine", "cable", "bodyweight", "band"],
+        "position": ["lying", "stand", "seated", "hanging"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 8,
+        "title": "exercise_benchPress",
+        "muscle": "chest",
+        "category": "push",
+        "equipment": ["multipower", "barbell", "dumbbell", "machine", "cable", "band"],
+        "position": ["flat", "incline", "decline"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 9,
+        "title": "exercise_flyes",
+        "muscle": "chest",
+        "category": "push",
+        "equipment": ["dumbbell", "machine", "cable", "band"],
+        "position": ["flat", "incline", "decline", "stand", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 10,
+        "title": "exercise_shoulderPress",
+        "muscle": "shoulders",
+        "category": "push",
+        "equipment": ["multipower", "barbell", "dumbbell", "machine", "cable", "band"],
+        "position": ["incline", "stand", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 11,
+        "title": "exercise_lateralRaises",
+        "muscle": "shoulders",
+        "category": "push",
+        "equipment": ["dumbbell", "machine", "cable", "band"],
+        "position": ["lying", "stand", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 12,
+        "title": "exercise_frontalRaises",
+        "muscle": "shoulders",
+        "category": "push",
+        "equipment": ["barbell", "dumbbell", "machine", "cable", "band"],
+        "position": ["lying", "stand", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 13,
+        "title": "exercise_tricepExtension",
+        "muscle": "triceps",
+        "category": "push",
+        "equipment": ["multipower", "barbell", "dumbbell", "machine", "cable", "bodyweight", "band"],
+        "position": ["flat", "incline", "decline", "stand", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 14,
+        "title": "exercise_tricepKickback",
+        "muscle": "triceps",
+        "category": "push",
+        "equipment": ["dumbbell", "machine", "cable", "band"],
+        "position": ["lying", "stand", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 15,
+        "title": "exercise_dips",
+        "muscle": "triceps",
+        "category": "push",
+        "equipment": ["machine", "bodyweight"],
+        "position": ["hanging"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 16,
+        "title": "exercise_calfRaise",
+        "muscle": "calves",
+        "category": "legs",
+        "equipment": ["multipower", "barbell", "dumbbell", "machine", "cable", "bodyweight", "band"],
+        "position": ["stand", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 17,
+        "title": "exercise_legCurl",
+        "muscle": "hamstrings",
+        "category": "legs",
+        "equipment": ["barbell", "dumbbell", "machine", "cable", "band"],
+        "position": ["lying", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 18,
+        "title": "exercise_legExtension",
+        "muscle": "quadriceps",
+        "category": "legs",
+        "equipment": ["barbell", "dumbbell", "machine", "cable", "band"],
+        "position": ["seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 19,
+        "title": "exercise_legPress",
+        "muscle": "quadriceps",
+        "category": "legs",
+        "equipment": ["machine"],
+        "position": ["incline", "decline", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 20,
+        "title": "exercise_lunges",
+        "muscle": "quadriceps",
+        "category": "legs",
+        "equipment": ["barbell", "dumbbell", "cable", "bodyweight"],
+        "position": ["stand"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 21,
+        "title": "exercise_crunch",
+        "muscle": "abs",
+        "category": "core",
+        "equipment": ["dumbbell", "machine", "bodyweight", "band"],
+        "position": ["flat", "incline", "decline", "seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 22,
+        "title": "exercise_legRaises",
+        "muscle": "abs",
+        "category": "core",
+        "equipment": ["dumbbell", "bodyweight", "band"],
+        "position": ["hanging"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 23,
+        "title": "exercise_plank",
+        "muscle": "abs",
+        "category": "core",
+        "equipment": ["dumbbell", "bodyweight"],
+        "position": ["lying"],
+        "measurement": ["time"]
+    },
+    {
+        "id": 24,
+        "title": "exercise_burpees",
+        "muscle": "fullbody",
+        "category": "core",
+        "equipment": ["dumbbell","bodyweight"],
+        "position": ["stand"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 25,
+        "title": "exercise_deadlift",
+        "muscle": "fullbody",
+        "category": "legs",
+        "equipment": ["multipower", "barbell", "dumbbell", "machine", "band"],
+        "position": ["stand"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 26,
+        "title": "exercise_squat",
+        "muscle": "quadriceps",
+        "category": "legs",
+        "equipment": ["multipower", "barbell", "dumbbell", "machine", "bodyweight", "band"],
+        "position": ["stand"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 27,
+        "title": "exercise_hipThrust",
+        "muscle": "glutes",
+        "category": "legs",
+        "equipment": ["multipower", "barbell", "dumbbell", "machine", "bodyweight", "band"],
+        "position": ["flat"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 28,
+        "title": "exercise_benchDip",
+        "muscle": "triceps",
+        "category": "push",
+        "equipment": ["dumbbell", "bodyweight", "machine", "band"],
+        "position": ["seated"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 29,
+        "title": "exercise_splitSquat",
+        "muscle": "quadriceps",
+        "category": "legs",
+        "equipment": ["barbell", "dumbbell", "bodyweight"],
+        "position": ["stand"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 30,
+        "title": "exercise_pushUp",
+        "muscle": "chest",
+        "category": "push",
+        "equipment": ["dumbbell", "bodyweight", "band"],
+        "position": ["lying"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 31,
+        "title": "exercise_walk",
+        "muscle": "fullbody",
+        "category": "cardio",
+        "equipment": ["machine", "bodyweight"],
+        "position": ["stand"],
+        "measurement": ["time", "distance", "steps"]
+    },
+    {
+        "id": 32,
+        "title": "exercise_run",
+        "muscle": "fullbody",
+        "category": "cardio",
+        "equipment": ["machine", "bodyweight"],
+        "position": ["stand"],
+        "measurement": ["time", "distance", "steps"]
+    },
+    {
+        "id": 33,
+        "title": "exercise_cycling",
+        "muscle": "fullbody",
+        "category": "cardio",
+        "equipment": ["machine", "bodyweight"],
+        "position": ["seated"],
+        "measurement": ["time", "distance"]
+    },
+    {
+        "id": 34,
+        "title": "exercise_rowing",
+        "muscle": "fullbody",
+        "category": "cardio",
+        "equipment": ["machine"],
+        "position": ["seated"],
+        "measurement": ["time", "distance"]
+    },
+    {
+        "id": 35,
+        "title": "exercise_jumpRope",
+        "muscle": "fullbody",
+        "category": "cardio",
+        "equipment": ["bodyweight"],
+        "position": ["stand"],
+        "measurement": ["reps", "time"]
+    },
+    {
+        "id": 36,
+        "title": "exercise_swim",
+        "muscle": "fullbody",
+        "category": "cardio",
+        "equipment": ["bodyweight"],
+        "position": ["lying"],
+        "measurement": ["time", "distance"]
+    },
+    {
+        "id": 37,
+        "title": "exercise_stairClimber",
+        "muscle": "fullbody",
+        "category": "cardio",
+        "equipment": ["machine", "bodyweight"],
+        "position": ["stand"],
+        "measurement": ["reps", "time", "distance", "steps"]
+    }
+]

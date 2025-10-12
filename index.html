@@ -1,0 +1,94 @@
+<!----------------------------------------------------------------------------------
+    GymRat [Provisional name] - Generate mesocycles easily.
+    Copyright (C) 2025 Manu Montaraz
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of the
+    License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+--------------------------------------------------------------------------------->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GymRat</title>
+        <link rel="stylesheet" href="./css/styles.css">
+        <script src="./js/scripts.js" type="module"></script>
+    </head>
+    <body>
+        <div id="loader">Loading...</div>
+        <form id="language_buttons" translation="attribute|languages|message">
+            <input type="button" id="button_spanish" class="alt" value="Español">
+            <input type="button" id="button_english" class="alt" value="English">           
+        </form>
+        <div id="main_content">
+            <form id="your_mesocycles" class="container">
+                <h1 translation="text|your_mesocycles" class="center"></h1>
+                <ul id="mesocycles_list" translation="attribute|no_mesocycles_yet|message"></ul>
+                <input type="button" id="button_new_mesocycle" class="center" translation="value|new_mesocycle">
+            </form>
+            <form id="new_mesocycle" class="hide container">
+                <h1 translation="text|new_mesocycle" class="center"></h1>
+                <ul>
+                    <li>
+                        <input type="text" id="new_mesocycle_name" name="new_mesocycle_name" translation="placeholder|mesocycle_name,title|hello_world" required>
+                    </li>
+                    <li>
+                        <select type="text" id="new_mesocycle_objective" name="new_mesocycle_objective" translation="title|hello_world" required>
+                            <option value="" translation="text|mesocycle_objective"></option>
+                            <option value="strength" translation="text|mesocycle_objective_strength"></option>
+                            <option value="hypertrophy" translation="text|mesocycle_objective_hypertrophy"></option>
+                            <option value="endurance" translation="text|mesocycle_objective_endurance"></option>
+                            <option value="definition" translation="text|mesocycle_objective_definition"></option>
+                            <option value="maintenance" translation="text|mesocycle_objective_maintenance"></option>
+                            <option value="bilbo" translation="text|mesocycle_objective_bilbo"></option>
+                        </select>
+                    </li>
+                    <li>
+                        <select type="text" id="new_mesocycle_structure" name="new_mesocycle_structure" translation="title|hello_world" required>
+                            <option value="" translation="text|mesocycle_structure"></option>
+                            <option value="fullbody" translation="text|mesocycle_structure_fullbody"></option>
+                            <option value="upper_lower" translation="text|mesocycle_structure_upper-lower"></option>
+                            <option value="push_pull_legs" translation="text|mesocycle_structure_push-pull-legs"></option>
+                            <option value="weider" translation="text|mesocycle_structure_weider"></option>
+                        </select>
+                    </li>
+                    <li>
+                        <input type="number" id="new_mesocycle_total_microcycle" name="new_mesocycle_total_microcycle" translation="placeholder|mesocycle_total_microcycle,title|hello_world" required>
+                    </li>
+                    <li>
+                        <input type="number" id="new_mesocycle_sessions_microcycle" name="new_mesocycle_sessions_microcycle" translation="placeholder|mesocycle_sessions_microcycle,title|hello_world" required>
+                    </li>
+                    <li>
+                        <input type="number" id="new_mesocycle_time_sessions" name="new_mesocycle_time_sessions" translation="placeholder|mesocycle_time_sessions,title|hello_world" required>
+                    </li>
+                </ul>
+                <div class="footer">
+                    <input type="button" id="button_new_mesocycle_cancel" class="center cancel" translation="value|cancel">
+                    <input type="button" id="button_new_mesocycle_next" class="center" translation="value|next">
+                </div>
+            </form>
+            <form id="new_mesocycle_page2" class="hide container">
+                <h1 translation="text|new_mesocycle" class="center"></h1>
+                <ul id="exercise_selection"></ul>
+                <div class="footer">
+                    <input type="button" id="button_new_mesocycle_back" class="center" translation="value|back">
+                    <input type="button" id="button_new_mesocycle_accept" class="center accept" translation="value|accept">
+                </div>
+            </form>
+        </div>
+        <footer>
+            <p translation="html|copyleft_text"></p>
+        </footer>
+    </body>
+</html>

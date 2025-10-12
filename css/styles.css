@@ -1,0 +1,336 @@
+/**********************************************************************************
+    GymRat [Provisional name] - Generate mesocycles easily.
+    Copyright (C) 2025 Manu Montaraz
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of the
+    License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+**********************************************************************************/
+
+:root {
+    --color-primary: #333;
+    --color-secondary: #555;
+    --color-background: #222;
+    --color-text: #f0f0f0;
+    --color-accent: #ff9800;
+    --color-button: #008CBA;
+    --color-button-text: #fff;
+    --color-button-hover: #02abe4;
+    --color-button-active: #8fb3be;
+    --color-button-accept: #0fba00;
+    --color-button-accept-text: #fff;
+    --color-button-accept-hover: #28e402;
+    --color-button-accept-active: #8fbe8f;
+    --color-button-cancel: #ba0000;
+    --color-button-cancel-text: #fff;
+    --color-button-cancel-hover: #e40202;
+    --color-button-cancel-active: #be8f8f;
+    --color-button-alt: #e7e7e7;
+    --color-button-alt-text: #000;
+    --color-button-alt-hover: #d4d4d4;
+    --color-button-alt-active: #a6a6a6;
+
+    --small-margin: .25rem;
+    --medium-margin: .5rem;
+    --large-margin: 1rem;
+
+    --border-radius: .5rem;
+
+    --instant-transition: .0125s;
+    --short-transition: .125s;
+    --medium-transition: .25s;
+    --long-transition: .5s;
+
+    --default-box-shadow: 0 .25rem .333rem rgba(0, 0, 0, 0.1);
+    --hover-box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.2);
+    --active-box-shadow: inset 0 .125rem .25rem rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: sans-serif;
+    margin: 0px;
+    padding: 0px;
+    font-size: 1rem;
+    
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+input:not([type=button]),select{
+    width: 75%;
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+    border: 1px solid black;
+
+    &:has(option:checked[value=""]),option[value=""] {
+        color: gray;
+    }
+
+    option:not([value=""]){
+        color:initial;
+    }
+
+    &:has(option){
+        cursor:pointer;
+    }
+
+    &:disabled{
+        background-color:gray;
+        transform:scale(0.975);
+        pointer-events: none;
+        cursor: default;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: var(--small-margin);
+    font-size: 0.75em;
+    color: var(--color-text);
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: var(--short-transition);
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.hide{
+    display: none !important;
+}
+
+.hInvert{
+    display: inline-block;
+    transform: scaleX(-1);
+}
+
+.left{
+    justify-self: left;
+    align-self: left;
+}
+
+.center{
+    justify-self: center;
+    align-self: center;
+}
+
+.right{
+    justify-self: right;
+    align-self: right;
+}
+
+*[message]:empty::before{
+    content: attr(message);
+    align-self: center;
+}
+
+button, input[type="button"] {
+    --background-color: var(--color-button);
+    --text-color: var(--color-button-text);
+    --box-shadow: var(--default-box-shadow);
+
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: none;
+    padding: .5rem 1rem;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    transition: var(--short-transition);
+    transform: scale(1);
+
+    &:hover {
+        --background-color: var(--color-button-hover);
+        --box-shadow: var(--hover-box-shadow);
+
+        transform: scale(1.125);
+
+        &.alt {
+            --background-color: var(--color-button-alt-hover);
+        }
+
+        &.accept {
+            --background-color: var(--color-button-accept-hover);
+        }
+
+        &.cancel {
+            --background-color: var(--color-button-cancel-hover);
+        }
+    }
+
+    &:active, &:disabled {
+        --background-color: var(--color-button-active);
+        --box-shadow: var(--active-box-shadow);
+
+        transform: scale(0.975);
+        transition: var(--instant-transition);
+
+        &.alt {
+            --background-color: var(--color-button-alt-active);
+        }
+
+        &.accept {
+            --background-color: var(--color-button-accept-active);
+        }
+
+        &.cancel {
+            --background-color: var(--color-button-cancel-active);
+        }
+    }
+
+    &:disabled {
+        cursor: default;
+        pointer-events:none;
+    }
+
+    &.alt {
+        --background-color: var(--color-button-alt);
+        --text-color: var(--color-button-alt-text);
+    }
+
+    &.accept {
+        --background-color: var(--color-button-accept);
+        --text-color: var(--color-button-accept-text);
+    }
+
+    &.cancel {
+        --background-color: var(--color-button-cancel);
+        --text-color: var(--color-button-cancel-text);
+    }
+
+}
+
+#loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    z-index: 9999;
+}
+
+#main_content{
+    --width: 210mm;
+    --margin: var(--large-margin);
+    
+    display:grid;
+    width: var(--width);
+    height: calc(100dvh - var(--large-margin) * 2 - var(--margin) * 2);
+    max-height: 297mm;
+    padding: var(--large-margin);
+    background:var(--color-primary);
+    margin: var(--margin) auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--default-box-shadow);
+    align-items: stretch;
+    overflow: hidden;
+    overflow-y: auto;
+    
+    @media (max-width: calc(210mm + 4rem)) or (max-height: calc(420px + 4rem)){
+        --width: calc(100% - (var(--large-margin) * 2));
+        --margin: 0px;
+
+        border-radius: 0px;
+    }
+}
+
+#language_buttons{
+    display: grid;
+    gap: 0.5rem;
+    width: max-content;
+    position: fixed;
+    margin:var(--medium-margin);
+    right: 0px;
+    top: 0px;
+    height: var(--medium-margin);
+    padding: var(--medium-margin);
+    background-color: var(--color-secondary);
+    border-radius: .5rem;
+    box-shadow: var(--default-box-shadow);
+    
+    &::before{
+        content: attr(message);
+        font-weight: bold;
+        background-color: var(--color-secondary);
+        padding: var(--medium-margin);
+        margin: calc(var(--medium-margin) * -1);
+        border-radius: .5rem;
+        text-align: center;
+        box-shadow: var(--default-box-shadow);
+    }
+
+    &:hover, &:focus-within{
+        height: auto;
+        
+        &>input{
+            opacity: 1;
+            pointer-events:auto;
+        }
+
+        &::before{
+            box-shadow: none;
+        }
+    }
+
+    &>input{
+        opacity: 0;
+        pointer-events:none;
+    }
+
+    @media (max-width: calc(210mm + 4rem)) or (max-height: calc(420px + 4rem)){
+        margin-right: var(--large-margin);
+    }
+}
+
+.container{
+    display: grid;
+    gap: var(--medium-margin);
+    justify-items: start;
+    grid-template-rows: auto 1fr auto;
+
+    ul{
+        list-style: none;
+        background-color: var(--color-secondary);
+        padding: var(--large-margin);
+        min-width: calc(100% - var(--large-margin) * 2);
+        min-height: 128px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--medium-margin);
+        justify-content: space-evenly;
+
+        li{
+            text-align: center;
+        }
+    }
+
+    .footer{
+        justify-self: center;
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: nowrap;
+    }
+}
