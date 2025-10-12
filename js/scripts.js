@@ -52,7 +52,7 @@ function init(){
 
 async function getExercises() {
     const response = await fetch('exercises.json')
-    const exercises = await response.json()
+    const exercises = (await response.json()).sort((a, b) => a.category.localeCompare(b.category))
 
     const muscles = [...new Set(exercises.flatMap((exercise)=>exercise.muscle))]
     const categories = [...new Set(exercises.flatMap((exercise)=>exercise.category))]
@@ -74,6 +74,7 @@ function loadExercises(){
 
     for(let indexExercise = 0 ; indexExercise < exercises.length ; indexExercise++){
         const exercise = exercises[indexExercise]
+
         console.log(exercise)
 
         containerNewMesocyclePage2.querySelector("#exercise_list").innerHTML += `

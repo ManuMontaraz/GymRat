@@ -42,6 +42,7 @@
     --small-margin: .25rem;
     --medium-margin: .5rem;
     --large-margin: 1rem;
+    --huge-margin: 2rem;
 
     --border-radius: .5rem;
 
@@ -90,6 +91,10 @@ input:not([type=button]):not([type=checkbox]):not([type=radio]),select{
         pointer-events: none;
         cursor: default;
     }
+}
+
+input[type=checkbox],input[type=radio],label[for]{
+    cursor:pointer;
 }
 
 footer {
@@ -323,6 +328,68 @@ button, input[type="button"] {
 
         li{
             text-align: center;
+        }
+
+        &#exercise_list{
+        display: grid;
+        justify-content: center;
+        
+            li{
+                display:grid;
+                max-width: 20rem;
+                background:dimgrey;
+                border-radius: var(--border-radius);
+                justify-content: space-around;
+                gap: var(--huge-margin);
+                padding: var(--huge-margin);
+                position:relative;
+                grid-column: 1;
+                
+                &:nth-child(2n){
+                    
+                    grid-column: 2;
+                }
+
+                >input[type=checkbox]:first-of-type{
+                    position:absolute;
+                    right:0px;
+                    margin: var(--large-margin);
+                }
+
+                h2{
+                    margin:0px;
+                    padding:0px;
+                }
+                
+                h6{
+                    margin:0px;
+                    padding:0px;
+                    position: absolute;
+                    top: -1rem;
+                    left: -.5rem
+                }
+
+                p{
+                    margin:0px;
+                    padding:0px;
+                }
+
+                .exercise_container{
+                    display:flex;
+                    min-width: 16rem;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    position: relative;
+                    gap: var(--medium-margin);
+
+                    div{
+                        background-color: var(--color-primary);
+                        padding: 0px var(--small-margin);
+                        border-radius: var(--border-radius);
+                    }
+                }
+            }
         }
     }
 
