@@ -19,6 +19,7 @@
 let languageLoaded = false
 let exercisesLoaded = false
 
+const version = document.querySelector("html").getAttribute("data-version")
 const [exercises,muscles,categories,equipments,positions,measurements] = await getExercises().then(data => data)
 const buttonSpanish = document.querySelector("#button_spanish")
 const buttonEnglish = document.querySelector("#button_english")
@@ -42,6 +43,7 @@ console.log({measurements})
 init()
 
 function init(){
+    loadExercises()
     setLanguage(getLanguage())
     setEvents()
 }
@@ -66,6 +68,40 @@ async function getExercises() {
     return [exercises,muscles,categories,equipments,positions,measurements]
 }
 
+function loadExercises(){
+    const containerExerciseList = containerNewMesocyclePage2.querySelector("#exercise_list")
+    containerExerciseList.innerHTML = ""
+
+    for(let indexExercise = 0 ; indexExercise < exercises.length ; indexExercise++){
+        const exercise = exercises[indexExercise]
+        console.log(exercise)
+
+        containerNewMesocyclePage2.querySelector("#exercise_list").innerHTML += `
+            <li id="exercise_list_${exercise.id}" class="exercise">
+                <h2>${translate(exercise.title)}</h2>
+                <input type="checkbox" id="exercise_${exercise.id}" name="exercise_${exercise.id}" value="${exercise.id}">
+                <div class="exercise_container">
+                    <h6>${translate("for")}:</h6>
+                    <p>${translate("category_"+exercise.category)}</p>
+                    <p>${translate("muscle_"+exercise.muscle)}</p>
+                </div>
+                <div class="exercise_container">
+                    <h6>${translate("equipment")}:</h6>
+                    ${exercise.equipment.map(equipment => `<div><label for="exercise_${exercise.id}_${equipment}">${translate("equipment_"+equipment)}</label><input type="checkbox" id="exercise_${exercise.id}_${equipment}" name="exercise_${exercise.id}_${equipment}"></div>`).join('')}
+                </div>
+                <div class="exercise_container">
+                    <h6>${translate("position")}:</h6>
+                    ${exercise.position.map(position => `<div><label for="exercise_${exercise.id}_${position}">${translate("position_"+position)}</label><input type="checkbox" id="exercise_${exercise.id}_${position}" name="exercise_${exercise.id}_${position}"></div>`).join('')}
+                </div>
+                <div class="exercise_container">
+                    <h6>${translate("measurement")}:</h6>
+                    ${exercise.measurement.map(measurement => `<div><label for="exercise_${exercise.id}_${measurement}">${translate("measurement_"+measurement)}</label><input type="checkbox" id="exercise_${exercise.id}_${measurement}" name="exercise_${exercise.id}_${measurement}"></div>`).join('')}
+                </div>
+            </li>
+        `
+    }
+}
+
 function getLanguage() {
     let lang = localStorage.getItem("language") || navigator.language || navigator.userLanguage || 'en'
     
@@ -85,7 +121,7 @@ function getLanguage() {
 
 function setLanguage(language=getLanguage()){
 
-    if(localStorage.getItem('language') === language){
+    if(localStorage.getItem('language') === language && localStorage.getItem('version') === version){
         const elementsTranslation = document.querySelectorAll("[translation]")
 
         translate(elementsTranslation)
@@ -96,6 +132,7 @@ function setLanguage(language=getLanguage()){
         }
     }else{
         localStorage.setItem('language', language)
+        localStorage.setItem('version', version)
         document.querySelector("html").lang = language
 
         fetch(`./lang/${language}.json`)
@@ -104,6 +141,7 @@ function setLanguage(language=getLanguage()){
 
             console.log("Language loaded:", language, data)
             localStorage.setItem('languageData', JSON.stringify(data))
+            localStorage.setItem('version', version)
 
             const elementsTranslation = document.querySelectorAll("[translation]")
 
@@ -127,12 +165,12 @@ function translate(toTranslate){
     const dataTranslation = JSON.parse(localStorage.getItem("languageData"))
 
     if(typeof toTranslate === "object"){
-        for(let indexElementTranslation=0; indexElementTranslation<toTranslate.length; indexElementTranslation++){
+        for(let indexElementTranslation = 0 ; indexElementTranslation < toTranslate.length ; indexElementTranslation++){
             const elementTranslation = toTranslate[indexElementTranslation]
 
             const translations = elementTranslation.getAttribute("translation").split(",")
 
-            for(let indexTranslation = 0; indexTranslation<translations.length; indexTranslation++){
+            for(let indexTranslation = 0 ; indexTranslation < translations.length ; indexTranslation++){
                 const translation = translations[indexTranslation].trim()
                 const [method, key, extra] = translation.split("|")
 

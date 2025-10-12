@@ -32,6 +32,13 @@
     "next": "Siguiente",
     "back": "Atrás",
 
+    "for": "Para",
+    "muscle": "Músculo",
+    "category": "Categoría",
+    "equipment": "Equipo",
+    "position": "Posición",
+    "measurement": "Medición",
+
     "muscle_biceps": "Bíceps",
     "muscle_back": "Espalda",
     "muscle_deltoids": "Deltoides",
@@ -44,26 +51,34 @@
     "muscle_abs": "Abdominales",
     "muscle_fullbody": "Cuerpo completo",
 
-    "group_push": "Empuje",
-    "group_pull": "Tirón",
-    "group_legs": "Piernas",
-    "group_core": "Core",
-    "group_cardio": "Cardio",
+    "category_push": "Empuje",
+    "category_pull": "Tirón",
+    "category_legs": "Piernas",
+    "category_core": "Core",
+    "category_cardio": "Cardio",
+    "category_upper": "Torso",
+    "category_lower": "Pierna",
 
-    "mode_barbell": "Barra",
-    "mode_dumbbell": "Mancuernas",
-    "mode_bodyweight": "Peso corporal",
-    "mode_multipower": "Multipower",
-    "mode_machine": "Máquina",
-    "mode_band": "Bandas elásticas",
+    "equipment_barbell": "Barra",
+    "equipment_dumbbell": "Mancuernas",
+    "equipment_bodyweight": "Peso corporal",
+    "equipment_multipower": "Multipower",
+    "equipment_machine": "Máquina",
+    "equipment_cable": "Polea",
+    "equipment_band": "Bandas elásticas",
 
-    "type_stand": "De pie",
-    "type_seated": "Sentado",
-    "type_lying": "Acostado",
-    "type_flat": "Plano",
-    "type_incline": "Inclinado",
-    "type_decline": "Declinado",
-    "type_hanging": "Colgado",
+    "position_stand": "De pie",
+    "position_seated": "Sentado",
+    "position_lying": "Acostado",
+    "position_flat": "Plano",
+    "position_incline": "Inclinado",
+    "position_decline": "Declinado",
+    "position_hanging": "Colgado",
+
+    "measurement_reps": "Repeticiones",
+    "measurement_time": "Tiempo",
+    "measurement_distance": "Distancia",
+    "measurement_steps": "Pasos",
     
     "exercise_bicepCurl": "Curl de bíceps",
     "exercise_row": "Remos",
@@ -103,5 +118,5 @@
     "exercise_swim": "Nadar",
     "exercise_stairClimber": "Subir/Bajar escaleras",
 
-    "copyleft_text": "<span class='hInvert'>&copy;</span> 2025 GymRat | Desarrollado por: <a href='https://manumontaraz.es' target='_blank'>Manu Montaraz</a> con 💚 | Licencia: <a href='https://www.gnu.org/licenses/agpl-3.0.html' target='_blank'>AGPL v3.0</a> | <a href='https://github.com/ManuMontaraz/gymrat' target='_blank'>Código fuente</a>"
+    "copyleft_text": "<span class='hInvert'>&copy;</span> 2025 GymRat | Desarrollado por: <a href='https://manumontaraz.es' target='_blank'>Manu Montaraz</a> con 💚 | Licencia: <a href='https://www.gnu.org/licenses/agpl-3.0.html' target='_blank'>AGPL v3.0</a> | <a href='https://github.com/ManuMontaraz/GymRat' target='_blank'>Código fuente</a>"
 }

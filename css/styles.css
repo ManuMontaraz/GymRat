@@ -65,7 +65,7 @@ body {
     color: var(--color-text);
 }
 
-input:not([type=button]),select{
+input:not([type=button]):not([type=checkbox]):not([type=radio]),select{
     width: 75%;
     box-sizing: border-box;
     border-radius: var(--border-radius);
