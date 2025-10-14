@@ -70,7 +70,28 @@ async function getExercises() {
 
 function loadExercises(){
     const containerExerciseList = containerNewMesocyclePage2.querySelector("#exercise_list")
-    containerExerciseList.innerHTML = ""
+    containerExerciseList.innerHTML = `
+        <li id="exercise_list_search">
+            <input id="search_exercise_title" type="text" translation="placeholder|search_exercise_title">
+            <select id="search_exercise_muscles">
+                <option></option>
+            </select>
+            <select id="search_exercise_categories">
+                <option></option>
+            </select>
+            <select id="search_exercise_equipments">
+                <option></option>
+            </select>
+            <select id="search_exercise_positions">
+                <option></option>
+            </select>
+            <select id="search_exercise_measurements">
+                <option></option>
+            </select>
+        </li>
+    `
+
+    //AÑADIR BÚSQUEDA DE MÚSCULOS, CATEGORÍAS, EQUIPAMIENTO, POSICIONES Y MEDIDAS
 
     for(let indexExercise = 0 ; indexExercise < exercises.length ; indexExercise++){
         const exercise = exercises[indexExercise]
@@ -79,24 +100,45 @@ function loadExercises(){
 
         containerNewMesocyclePage2.querySelector("#exercise_list").innerHTML += `
             <li id="exercise_list_${exercise.id}" class="exercise">
-                <h2>${translate(exercise.title)}</h2>
+                <h2 translation="text|${exercise.title}"></h2>
                 <input type="checkbox" id="exercise_${exercise.id}" name="exercise_${exercise.id}" value="${exercise.id}">
                 <div class="exercise_container">
-                    <h6>${translate("for")}:</h6>
-                    <p>${translate("category_"+exercise.category)}</p>
-                    <p>${translate("muscle_"+exercise.muscle)}</p>
+                    <h6 translation="text|for"></h6>
+                    <p translation="text|category_${exercise.category}"></p>
+                    <p translation="text|muscle_${exercise.muscle}"></p>
                 </div>
                 <div class="exercise_container">
-                    <h6>${translate("equipment")}:</h6>
-                    ${exercise.equipment.map(equipment => `<div><label for="exercise_${exercise.id}_${equipment}">${translate("equipment_"+equipment)}</label><input type="checkbox" id="exercise_${exercise.id}_${equipment}" name="exercise_${exercise.id}_${equipment}"></div>`).join('')}
+                    <h6 translation="text|equipment">${translate("equipment")}:</h6>
+                    ${exercise.equipment
+                        .map(equipment => `
+                            <div>
+                                <label for="exercise_${exercise.id}_${equipment}" translation="text|equipment_${equipment}"></label>
+                                <input type="checkbox" id="exercise_${exercise.id}_${equipment}" name="exercise_${exercise.id}_${equipment}">
+                            </div>`)
+                        .join('')
+                    }
                 </div>
                 <div class="exercise_container">
-                    <h6>${translate("position")}:</h6>
-                    ${exercise.position.map(position => `<div><label for="exercise_${exercise.id}_${position}">${translate("position_"+position)}</label><input type="checkbox" id="exercise_${exercise.id}_${position}" name="exercise_${exercise.id}_${position}"></div>`).join('')}
+                    <h6 translation="text|position"></h6>
+                    ${exercise.position
+                        .map(position => `
+                            <div>
+                                <label for="exercise_${exercise.id}_${position}" translation="text|position_${position}"></label>
+                                <input type="checkbox" id="exercise_${exercise.id}_${position}" name="exercise_${exercise.id}_${position}">
+                            </div>`)
+                        .join('')
+                    }
                 </div>
                 <div class="exercise_container">
-                    <h6>${translate("measurement")}:</h6>
-                    ${exercise.measurement.map(measurement => `<div><label for="exercise_${exercise.id}_${measurement}">${translate("measurement_"+measurement)}</label><input type="checkbox" id="exercise_${exercise.id}_${measurement}" name="exercise_${exercise.id}_${measurement}"></div>`).join('')}
+                    <h6 translation="text|measurement">${translate("measurement")}:</h6>
+                    ${exercise.measurement
+                        .map(measurement => `
+                            <div>
+                                <label for="exercise_${exercise.id}_${measurement}" translation="text|measurement_${measurement}"></label>
+                                <input type="checkbox" id="exercise_${exercise.id}_${measurement}" name="exercise_${exercise.id}_${measurement}">
+                            </div>`)
+                        .join('')
+                    }
                 </div>
             </li>
         `
@@ -248,6 +290,8 @@ function setEvents(){
     buttonNextNewMesocycle.addEventListener("click", (event)=>{
         event.preventDefault()
         //CALCULAR EJERCICIOS SI NO ESTÁN YA!
+        //RETURN SI *REQUIRED* ESTÁ VACÍO
+        //ACTUALIZAR ESTRUCTURA EN containerNewMesocyclePage2 (Weider y Fullbody = Oculto | Torso - Pierna = (Tirón y Empuje = Torso) | Tirón - Empuje - Pierna = Predeterminado)
         showContainer(containerNewMesocyclePage2)
     })
 

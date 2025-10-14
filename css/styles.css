@@ -239,11 +239,9 @@ button, input[type="button"] {
 #main_content{
     --width: 210mm;
     --margin: var(--large-margin);
-    
     display:grid;
     width: var(--width);
     height: calc(100dvh - var(--large-margin) * 2 - var(--margin) * 2);
-    max-height: 297mm;
     padding: var(--large-margin);
     background:var(--color-primary);
     margin: var(--margin) auto;
@@ -258,6 +256,10 @@ button, input[type="button"] {
         --margin: 0px;
 
         border-radius: 0px;
+    }
+
+    @media (min-width: 2400px){
+        --width: 297mm;
     }
 }
 
@@ -314,7 +316,8 @@ button, input[type="button"] {
     gap: var(--medium-margin);
     justify-items: start;
     grid-template-rows: auto 1fr auto;
-
+    height: inherit;
+    
     ul{
         list-style: none;
         background-color: var(--color-secondary);
@@ -325,30 +328,29 @@ button, input[type="button"] {
         flex-direction: column;
         gap: var(--medium-margin);
         justify-content: space-evenly;
-
+        scrollbar-width:thin;
+        scrollbar-color: var(--color-primary) var(--color-secondary);
+        
         li{
             text-align: center;
         }
 
         &#exercise_list{
-        display: grid;
-        justify-content: center;
+            justify-content: space-evenly;
+            overflow: hidden;
+            overflow-y: auto;
+            flex-wrap: wrap;
+            flex-direction: row;
         
             li{
                 display:grid;
-                max-width: 20rem;
+                max-width: 16rem;
                 background:dimgrey;
                 border-radius: var(--border-radius);
                 justify-content: space-around;
                 gap: var(--huge-margin);
                 padding: var(--huge-margin);
                 position:relative;
-                grid-column: 1;
-                
-                &:nth-child(2n){
-                    
-                    grid-column: 2;
-                }
 
                 >input[type=checkbox]:first-of-type{
                     position:absolute;
@@ -372,6 +374,25 @@ button, input[type="button"] {
                 p{
                     margin:0px;
                     padding:0px;
+                }
+
+                &#exercise_list_search {
+                    position: sticky;
+                    top: 0px;
+                    width: 100%;
+                    max-width: inherit;
+                    z-index: 1;
+                    box-shadow: var(--default-box-shadow);
+                    background-color: var(--color-primary);
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                    gap: var(--medium-margin);
+                    padding: var(--medium-margin);
+
+                    input,select{
+                        width: 30%;
+                    }
                 }
 
                 .exercise_container{
