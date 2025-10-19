@@ -6,7 +6,7 @@
     "no_mesocycles_yet": "Aún no tienes mesociclos.",
     "new_mesocycle": "Nuevo Mesociclo",
 
-    "error_not_implemented_yet": "Aún no ha sido implementado!",
+    "error_not_implemented_yet": "¡Aún no ha sido implementado!",
 
     "mesocycle_name": "Nombre del Mesociclo",
     "mesocycle_objective": "Objetivo",
@@ -33,11 +33,18 @@
     "back": "Atrás",
 
     "for": "Para",
+    "search":"Búsqueda",
     "muscle": "Músculo",
     "category": "Categoría",
     "equipment": "Equipo",
     "position": "Posición",
     "measurement": "Medición",
+    
+    "muscles": "Músculos",
+    "categories": "Categorías",
+    "equipments": "Equipos",
+    "positions": "Posiciones",
+    "measurements": "Mediciones",
 
     "muscle_biceps": "Bíceps",
     "muscle_back": "Espalda",
@@ -50,7 +57,7 @@
     "muscle_glutes": "Glúteos",
     "muscle_calves": "Gemelos",
     "muscle_abs": "Abdominales",
-    "muscle_fullbody": "Cuerpo completo",
+    "muscle_fullbody": "Fullbody",
 
     "category_push": "Empuje",
     "category_pull": "Tirón",

@@ -31,7 +31,7 @@
         "title": "exercise_pullUps",
         "muscle": "back",
         "category": "pull",
-        "equipment": ["machine", "bodyweight"],
+        "equipment": ["machine", "bodyweight","band"],
         "position": ["hanging"],
         "measurement": ["reps", "time"]
     },

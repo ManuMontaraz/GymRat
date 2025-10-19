@@ -72,26 +72,55 @@ function loadExercises(){
     const containerExerciseList = containerNewMesocyclePage2.querySelector("#exercise_list")
     containerExerciseList.innerHTML = `
         <li id="exercise_list_search">
-            <input id="search_exercise_title" type="text" translation="placeholder|search_exercise_title">
+            <input id="search_exercise_title" type="text" translation="placeholder|search">
             <select id="search_exercise_muscles">
-                <option></option>
+                <option value="" translation="text|muscles"></option>
             </select>
             <select id="search_exercise_categories">
-                <option></option>
+                <option value="" translation="text|categories"></option>
             </select>
             <select id="search_exercise_equipments">
-                <option></option>
+                <option value="" translation="text|equipments"></option>
             </select>
             <select id="search_exercise_positions">
-                <option></option>
+                <option value="" translation="text|positions"></option>
             </select>
             <select id="search_exercise_measurements">
-                <option></option>
+                <option value="" translation="text|measurements"></option>
             </select>
         </li>
     `
+    
+    const selectMuscles = document.querySelector("#search_exercise_muscles")
+    const selectCategories = document.querySelector("#search_exercise_categories")
+    const selectEquipments = document.querySelector("#search_exercise_equipments")
+    const selectPositions = document.querySelector("#search_exercise_positions")
+    const selectMeasurements = document.querySelector("#search_exercise_measurements")
 
-    //AÑADIR BÚSQUEDA DE MÚSCULOS, CATEGORÍAS, EQUIPAMIENTO, POSICIONES Y MEDIDAS
+    for(let indexMuscles = 0 ; indexMuscles < muscles.length ; indexMuscles++){
+        const muscle = muscles[indexMuscles]
+        selectMuscles.insertAdjacentHTML("beforeend",`<option value="${muscle}" translation="text|muscle_${muscle}"></option>`)
+    }
+
+    for(let indexCategories = 0 ; indexCategories < categories.length ; indexCategories++){
+        const category = categories[indexCategories]
+        selectCategories.insertAdjacentHTML("beforeend",`<option value="${category}" translation="text|category_${category}"></option>`)
+    }
+
+    for(let indexEquipments = 0 ; indexEquipments < equipments.length ; indexEquipments++){
+        const equipment = equipments[indexEquipments]
+        selectEquipments.insertAdjacentHTML("beforeend",`<option value="${equipment}" translation="text|equipment_${equipment}"></option>`)
+    }
+
+    for(let indexPositions = 0 ; indexPositions < positions.length ; indexPositions++){
+        const position = positions[indexPositions]
+        selectPositions.insertAdjacentHTML("beforeend",`<option value="${position}" translation="text|position_${position}"></option>`)
+    }
+
+    for(let indexMeasurements = 0 ; indexMeasurements < measurements.length ; indexMeasurements++){
+        const measurement = measurements[indexMeasurements]
+        selectMeasurements.insertAdjacentHTML("beforeend",`<option value="${measurement}" translation="text|measurement_${measurement}"></option>`)
+    }
 
     for(let indexExercise = 0 ; indexExercise < exercises.length ; indexExercise++){
         const exercise = exercises[indexExercise]
@@ -99,12 +128,11 @@ function loadExercises(){
         console.log(exercise)
 
         containerNewMesocyclePage2.querySelector("#exercise_list").innerHTML += `
-            <li id="exercise_list_${exercise.id}" class="exercise">
-                <h2 translation="text|${exercise.title}"></h2>
-                <input type="checkbox" id="exercise_${exercise.id}" name="exercise_${exercise.id}" value="${exercise.id}">
+            <li id="exercise_list_${exercise.id}" class="exercise searchable">
+                <h2 search="title" translation="text|${exercise.title}"></h2>
                 <div class="exercise_container">
                     <h6 translation="text|for"></h6>
-                    <p translation="text|category_${exercise.category}"></p>
+                    <p search="title" translation="text|category_${exercise.category}"></p>
                     <p translation="text|muscle_${exercise.muscle}"></p>
                 </div>
                 <div class="exercise_container">
@@ -143,6 +171,110 @@ function loadExercises(){
             </li>
         `
     }
+
+    setExercisesEvents()
+}
+
+function setExercisesEvents(){
+    const searchExercise = document.querySelector("#search_exercise_title")
+    const selectMuscles = document.querySelector("#search_exercise_muscles")
+    const selectCategories = document.querySelector("#search_exercise_categories")
+    const selectEquipments = document.querySelector("#search_exercise_equipments")
+    const selectPositions = document.querySelector("#search_exercise_positions")
+    const selectMeasurements = document.querySelector("#search_exercise_measurements")
+
+    const elementExerciseList = document.querySelector("#exercise_list")
+    const elementsExercises = elementExerciseList.querySelectorAll(".exercise")
+
+    const getValue = () => {
+        return [
+            searchExercise.value,
+            (selectMuscles.value?selectMuscles.querySelector(`option[value=${selectMuscles.value}]`).textContent:undefined),
+            (selectCategories.value?selectCategories.querySelector(`option[value=${selectCategories.value}]`).textContent:undefined),
+            (selectEquipments.value?selectEquipments.querySelector(`option[value=${selectEquipments.value}]`).textContent:undefined),
+            (selectPositions.value?selectPositions.querySelector(`option[value=${selectPositions.value}]`).textContent:undefined),
+            (selectMeasurements.value?selectMeasurements.querySelector(`option[value=${selectMeasurements.value}]`).textContent:undefined)
+        ]
+    }
+
+    const search = (element, searchValues) => {
+        if (!element.classList.contains("searchable")) {
+            console.warn(translate("error_element_not_searchable"))
+            return
+        }
+        
+        const text = element.textContent.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        const terms = Array.isArray(searchValues) ? searchValues : [searchValues]
+        const cleanTerms = terms.filter(Boolean).map(term => term.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
+        const matches = cleanTerms.every(term => text.includes(term))
+
+        element.classList.toggle("hide", !matches)
+    }
+
+    searchExercise.addEventListener("input",(event)=>{
+        const value = getValue()
+
+        elementExerciseList.classList.add("hide")
+        for(let indexExercise = 0 ; indexExercise < elementsExercises.length ; indexExercise++){
+            search(elementsExercises[indexExercise],value)
+        }
+        elementExerciseList.classList.remove("hide")
+    })
+
+    selectMuscles.addEventListener("change",(event)=>{
+        const value = getValue()
+
+        elementExerciseList.classList.add("hide")
+        for(let indexExercise = 0 ; indexExercise < elementsExercises.length ; indexExercise++){
+            search(elementsExercises[indexExercise],value)
+        }
+        elementExerciseList.classList.remove("hide")
+        //console.log(value)
+    })
+
+    selectCategories.addEventListener("change",(event)=>{
+        const value = getValue()
+
+        elementExerciseList.classList.add("hide")
+        for(let indexExercise = 0 ; indexExercise < elementsExercises.length ; indexExercise++){
+            search(elementsExercises[indexExercise],value)
+        }
+        elementExerciseList.classList.remove("hide")
+        //console.log(value)
+    })
+
+    selectEquipments.addEventListener("change",(event)=>{
+        const value = getValue()
+
+        elementExerciseList.classList.add("hide")
+        for(let indexExercise = 0 ; indexExercise < elementsExercises.length ; indexExercise++){
+            search(elementsExercises[indexExercise],value)
+        }
+        elementExerciseList.classList.remove("hide")
+        //console.log(value)
+    })
+
+    selectPositions.addEventListener("change",(event)=>{
+        const value = getValue()
+
+        elementExerciseList.classList.add("hide")
+        for(let indexExercise = 0 ; indexExercise < elementsExercises.length ; indexExercise++){
+            search(elementsExercises[indexExercise],value)
+        }
+        elementExerciseList.classList.remove("hide")
+        //console.log(value)
+    })
+
+    selectMeasurements.addEventListener("change",(event)=>{
+        const value = getValue()
+
+        elementExerciseList.classList.add("hide")
+        for(let indexExercise = 0 ; indexExercise < elementsExercises.length ; indexExercise++){
+            search(elementsExercises[indexExercise],value)
+        }
+        elementExerciseList.classList.remove("hide")
+        //console.log(value)
+    })
 }
 
 function getLanguage() {
