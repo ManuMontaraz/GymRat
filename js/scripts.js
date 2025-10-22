@@ -399,6 +399,18 @@ function showContainer(container){
 
 function setEvents(){
 
+    containerNewMesocycle.addEventListener("input",(event)=>{
+        console.log(event.target)
+
+        const input = event.target
+
+        if(["input","select"].includes(input.localName) && input.getAttribute("type") !== "button")return //NO CUENTA
+
+        //CALCULAR EJERCICIOS SI NO ESTÁN YA!
+        //RETURN SI *REQUIRED* ESTÁ VACÍO
+        //ACTUALIZAR ESTRUCTURA EN containerNewMesocyclePage2 (Weider y Fullbody = Oculto | Torso - Pierna = (Tirón y Empuje = Torso) | Tirón - Empuje - Pierna = Predeterminado)
+    })
+
     buttonSpanish.addEventListener("click", (event)=>{
         event.preventDefault()
         setLanguage('es')
@@ -424,6 +436,24 @@ function setEvents(){
         //CALCULAR EJERCICIOS SI NO ESTÁN YA!
         //RETURN SI *REQUIRED* ESTÁ VACÍO
         //ACTUALIZAR ESTRUCTURA EN containerNewMesocyclePage2 (Weider y Fullbody = Oculto | Torso - Pierna = (Tirón y Empuje = Torso) | Tirón - Empuje - Pierna = Predeterminado)
+
+        const inputs = containerNewMesocycle.querySelectorAll("input,select")
+        const options = {}
+        for(let indexInputs = 0 ; indexInputs < inputs.length ; indexInputs++){
+            const input = inputs[indexInputs]
+            const key = input.id.replace("new_mesocycle_","")
+            const value = input.value
+            if(input.hasAttribute("required") && (!value || value == "")){
+                buttonNextNewMesocycle.setAttribute("disabled","")
+                alert("PLACEHOLDER || INPUT REQUERIDO")
+                return //ALERTA X INPUT ES REQUERIDO
+            }
+            options[key] = value
+        }
+
+        console.log({options})
+
+        //
         showContainer(containerNewMesocyclePage2)
     })
 
