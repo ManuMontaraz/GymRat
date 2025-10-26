@@ -38,7 +38,7 @@
     {
         "id": 5,
         "title": "exercise_facePull",
-        "muscle": "deltoids",
+        "muscle": "shoulders",
         "category": "pull",
         "equipment": ["cable", "band"],
         "position": ["stand", "seated"],
@@ -47,7 +47,7 @@
     {
         "id": 6,
         "title": "exercise_uprightRow",
-        "muscle": "deltoids",
+        "muscle": "shoulders",
         "category": "pull",
         "equipment": ["barbell", "dumbbell", "machine", "cable", "band"],
         "position": ["stand", "seated"],
@@ -56,7 +56,7 @@
     {
         "id": 7,
         "title": "exercise_reverseFlyes",
-        "muscle": "deltoids",
+        "muscle": "shoulders",
         "category": "pull",
         "equipment": ["dumbbell", "machine", "cable", "bodyweight", "band"],
         "position": ["lying", "stand", "seated", "hanging"],

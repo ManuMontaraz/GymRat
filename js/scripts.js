@@ -275,6 +275,31 @@ function setExercisesEvents(){
         elementExerciseList.classList.remove("hide")
         //console.log(value)
     })
+
+    for(let indexExercise = 0 ; indexExercise < elementsExercises.length ; indexExercise++){
+
+        const elementExercice = elementsExercises[indexExercise]
+
+        elementExercice.addEventListener("change",(event)=>{
+            const id = event.target.id.split("_")[1]
+            console.log({id})
+
+            const groups = elementExercice.querySelectorAll(".exercise_container:has(input)")
+            console.log({groups})
+
+            const inputs = [...groups].map(group=>group.querySelectorAll("input"))
+            console.log({inputs})
+
+            const isFull = ![...inputs].map(input=>[...input].map(input=>input.checked === true).some(Boolean)).includes(false)
+            console.log({isFull})
+
+            if(isFull)elementExercice.classList.add("active")
+            else elementExercice.classList.remove("active")
+
+            if(elementExerciseList.querySelector(".active") === null)buttonAcceptNewMesocycle.setAttribute("disabled","")
+            else buttonAcceptNewMesocycle.removeAttribute("disabled")
+        })
+    }
 }
 
 function getLanguage() {
@@ -400,15 +425,24 @@ function showContainer(container){
 function setEvents(){
 
     containerNewMesocycle.addEventListener("input",(event)=>{
-        console.log(event.target)
 
         const input = event.target
 
-        if(["input","select"].includes(input.localName) && input.getAttribute("type") !== "button")return //NO CUENTA
+        console.log(input)
 
-        //CALCULAR EJERCICIOS SI NO ESTÁN YA!
-        //RETURN SI *REQUIRED* ESTÁ VACÍO
-        //ACTUALIZAR ESTRUCTURA EN containerNewMesocyclePage2 (Weider y Fullbody = Oculto | Torso - Pierna = (Tirón y Empuje = Torso) | Tirón - Empuje - Pierna = Predeterminado)
+        if(["input","select"].includes(input.localName) && input.getAttribute("type") === "button")return //NO CUENTA
+
+        if(input.id === "new_mesocycle_structure"){
+            //ACTUALIZAR ESTRUCTURA EN containerNewMesocyclePage2 (Weider y Fullbody = Oculto | Torso - Pierna = (Tirón y Empuje = Torso) | Tirón - Empuje - Pierna = Predeterminado)
+        }
+
+        const requiredInputs = containerNewMesocycle.querySelectorAll("input:not([type=button])[required],select[required]")
+        const requiredInputsWithValue = [...requiredInputs].filter(input=>input.value)
+
+        console.log({requiredInputs},requiredInputs.length,{requiredInputsWithValue},requiredInputsWithValue.length)
+
+        if(requiredInputsWithValue.length === requiredInputs.length)buttonNextNewMesocycle.removeAttribute("disabled")
+        else buttonNextNewMesocycle.setAttribute("disabled","")        
     })
 
     buttonSpanish.addEventListener("click", (event)=>{

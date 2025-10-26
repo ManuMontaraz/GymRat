@@ -360,6 +360,11 @@ button, input[type="button"] {
                 gap: var(--huge-margin);
                 padding: var(--huge-margin);
                 position:relative;
+                transition: var(--short-transition);
+
+                &.active{
+                    background-color: var(--color-button);
+                }
 
                 >input[type=checkbox]:first-of-type{
                     position:absolute;
