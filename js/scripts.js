@@ -33,12 +33,17 @@ const containerYourMesocycles = document.querySelector("#your_mesocycles")
 const containerNewMesocycle = document.querySelector("#new_mesocycle")
 const containerNewMesocyclePage2 = document.querySelector("#new_mesocycle_page2")
 
+const yourMesocycles = getYourMesocycles()
+
 console.log({exercises})
 console.log({muscles})
 console.log({categories})
 console.log({equipments})
 console.log({positions})
 console.log({measurements})
+
+console.log({yourMesocycles})
+alert(JSON.stringify(yourMesocycles))
 
 init()
 
@@ -501,4 +506,16 @@ function setEvents(){
         event.preventDefault()
         alert(translate("error_not_implemented_yet"))
     })
+}
+
+function getYourMesocycles(){
+    const yourMesocycles = localStorage.getItem("yourMesocycles")
+
+    if(!yourMesocycles)return []
+    return JSON.parse(yourMesocycles)
+}
+
+function newMesocycle(){
+    //MONTAR ESTRUCTURA MESOCICLO DEL FORMULARIO
+    //localStorage.setItem("yourMesocycles",mesocycleForm)
 }
