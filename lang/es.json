@@ -78,8 +78,8 @@
     "position_seated": "Sentado",
     "position_lying": "Acostado",
     "position_flat": "Plano",
-    "position_incline": "Inclinado",
-    "position_decline": "Declinado",
+    "position_inclined": "Inclinado",
+    "position_declined": "Declinado",
     "position_hanging": "Colgado",
 
     "measurement_reps": "Repeticiones",

@@ -78,8 +78,8 @@
     "position_seated": "Seated",
     "position_lying": "Lying",
     "position_flat": "Flat",
-    "position_incline": "Incline",
-    "position_decline": "Decline",
+    "position_inclined": "Inclined",
+    "position_declined": "Declined",
     "position_hanging": "Hanging",
 
     "measurement_reps": "Reps",

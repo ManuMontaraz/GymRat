@@ -43,7 +43,7 @@ console.log({positions})
 console.log({measurements})
 
 console.log({yourMesocycles})
-alert(JSON.stringify(yourMesocycles))
+//alert(JSON.stringify(yourMesocycles))
 
 init()
 
@@ -146,8 +146,8 @@ function loadExercises(){
                     ${exercise.equipment
                         .map(equipment => `
                             <div>
-                                <label for="exercise_${exercise.id}_${equipment}" translation="text|equipment_${equipment}"></label>
-                                <input type="checkbox" id="exercise_${exercise.id}_${equipment}" name="exercise_${exercise.id}_${equipment}">
+                                <label for="exercise_${exercise.id}_equipment_${equipment}" translation="text|equipment_${equipment}"></label>
+                                <input type="checkbox" id="exercise_${exercise.id}_equipment_${equipment}" name="exercise_${exercise.id}_equipment_${equipment}">
                             </div>`)
                         .join('')
                     }
@@ -157,8 +157,8 @@ function loadExercises(){
                     ${exercise.position
                         .map(position => `
                             <div>
-                                <label for="exercise_${exercise.id}_${position}" translation="text|position_${position}"></label>
-                                <input type="checkbox" id="exercise_${exercise.id}_${position}" name="exercise_${exercise.id}_${position}">
+                                <label for="exercise_${exercise.id}_position_${position}" translation="text|position_${position}"></label>
+                                <input type="checkbox" id="exercise_${exercise.id}_position_${position}" name="exercise_${exercise.id}_position_${position}">
                             </div>`)
                         .join('')
                     }
@@ -168,8 +168,8 @@ function loadExercises(){
                     ${exercise.measurement
                         .map(measurement => `
                             <div>
-                                <label for="exercise_${exercise.id}_${measurement}" translation="text|measurement_${measurement}"></label>
-                                <input type="checkbox" id="exercise_${exercise.id}_${measurement}" name="exercise_${exercise.id}_${measurement}">
+                                <label for="exercise_${exercise.id}_measurement_${measurement}" translation="text|measurement_${measurement}"></label>
+                                <input type="checkbox" id="exercise_${exercise.id}_measurement_${measurement}" name="exercise_${exercise.id}_measurement_${measurement}">
                             </div>`)
                         .join('')
                     }
@@ -439,7 +439,7 @@ function setEvents(){
         if(["input","select"].includes(input.localName) && input.getAttribute("type") === "button")return //NO CUENTA
 
         if(input.id === "new_mesocycle_structure"){
-            //ACTUALIZAR ESTRUCTURA EN containerNewMesocyclePage2 (Weider y Fullbody = Oculto | Torso - Pierna = (Tirón y Empuje = Torso) | Tirón - Empuje - Pierna = Predeterminado)
+            //TO-DO: ACTUALIZAR ESTRUCTURA EN containerNewMesocyclePage2 (Weider y Fullbody = Oculto | Torso - Pierna = (Tirón y Empuje = Torso) | Tirón - Empuje - Pierna = Predeterminado)
         }
 
         const requiredInputs = containerNewMesocycle.querySelectorAll("input:not([type=button])[required],select[required]")
@@ -473,25 +473,59 @@ function setEvents(){
 
     buttonNextNewMesocycle.addEventListener("click", (event)=>{
         event.preventDefault()
-        //CALCULAR EJERCICIOS SI NO ESTÁN YA!
+        //TO-DO: CALCULAR EJERCICIOS SI NO ESTÁN YA!
         //RETURN SI *REQUIRED* ESTÁ VACÍO
         //ACTUALIZAR ESTRUCTURA EN containerNewMesocyclePage2 (Weider y Fullbody = Oculto | Torso - Pierna = (Tirón y Empuje = Torso) | Tirón - Empuje - Pierna = Predeterminado)
 
-        const inputs = containerNewMesocycle.querySelectorAll("input,select")
-        const options = {}
-        for(let indexInputs = 0 ; indexInputs < inputs.length ; indexInputs++){
-            const input = inputs[indexInputs]
-            const key = input.id.replace("new_mesocycle_","")
-            const value = input.value
-            if(input.hasAttribute("required") && (!value || value == "")){
-                buttonNextNewMesocycle.setAttribute("disabled","")
-                alert("PLACEHOLDER || INPUT REQUERIDO")
-                return //ALERTA X INPUT ES REQUERIDO
-            }
-            options[key] = value
-        }
+        const options = getInputValues(containerNewMesocycle,"new_mesocycle_")
 
         console.log({options})
+
+        if(options === undefined || typeof options === "string")return //TO-DO: GESTIONAR ERRORES
+
+        /* TO-DO: ESTO HARÍA FALTA? (COMPROBACIÓN DE OBJETIVOS Y MICROCICLOS)
+        switch(options.objective){
+            case "strength":
+                if(options.total_microcycle < 4){
+                    alert(translate("error_strength_min_microcycles"))
+                    return
+                }
+            break
+        }
+        */
+
+        switch(options.structure){
+            case "weider":
+                if(options.sessions_microcycle < 5){
+                    alert(translate("error_weider_min_sessions"))
+                    return
+                }
+                if(options.sessions_microcycle % 5 !== 0){
+                    alert(translate("error_weider_sessions_multiple"))
+                    return
+                }
+            break
+            case "upper_lower":
+                if(options.sessions_microcycle < 2){
+                    alert(translate("error_upperLower_min_sessions"))
+                    return
+                }
+                if(options.sessions_microcycle % 2 !== 0){
+                    alert(translate("error_upperLower_sessions_multiple"))
+                    return
+                }
+            break
+            case "push_pull_legs":
+                if(options.sessions_microcycle < 3){
+                    alert(translate("error_pushPullLegs_min_sessions"))
+                    return
+                }
+                if(options.sessions_microcycle % 3 !== 0){
+                    alert(translate("error_pushPullLegs_sessions_multiple"))
+                    return
+                }
+            break
+        }
 
         //
         showContainer(containerNewMesocyclePage2)
@@ -504,8 +538,51 @@ function setEvents(){
 
     buttonAcceptNewMesocycle.addEventListener("click", (event)=>{
         event.preventDefault()
-        alert(translate("error_not_implemented_yet"))
+        //alert(translate("error_not_implemented_yet"))
+
+        newMesocycle()
     })
+}
+
+function getInputValues(container,replaceId="",needActive){
+    if(!container)return
+
+    const selector = needActive ? ".active input,.active select" : "input,select"
+
+    const inputs = container.querySelectorAll(selector)
+    const options = {}
+
+    for(let indexInputs = 0 ; indexInputs < inputs.length ; indexInputs++){
+        const input = inputs[indexInputs]
+        if(input.getAttribute("type") == "button")continue
+        const key = input.id.replace(replaceId,"")
+        const value = input.getAttribute("type") == "radio" || input.getAttribute("type") == "checkbox" ? input.checked : input.value
+        if(input.hasAttribute("required") && (!value || value == "")){
+            //TO-DO: GESTION ERRORES
+            // buttonNextNewMesocycle.setAttribute("disabled","")
+            alert("PLACEHOLDER || INPUT REQUERIDO")
+            return `required_item_${indexInputs}`//ALERTA X INPUT ES REQUERIDO
+        }
+        else if(!value)continue
+        options[key] = value
+    }
+
+    return options
+}
+
+function reduceOptionExercises(optionsExercises){
+    return Object.entries(optionsExercises).reduce((accumulator, [key, value]) => {
+        if (!value) return accumulator
+        const [, num, category, item] = key.split("_")
+
+        if (!accumulator[num]) {
+            accumulator[num] = { equipment: [], position: [], measurement: [] }
+        }
+
+        accumulator[num][category].push(item)
+
+        return accumulator
+    }, {})
 }
 
 function getYourMesocycles(){
@@ -516,6 +593,65 @@ function getYourMesocycles(){
 }
 
 function newMesocycle(){
-    //MONTAR ESTRUCTURA MESOCICLO DEL FORMULARIO
+    //TO-DO: MONTAR ESTRUCTURA MESOCICLO DEL FORMULARIO
     //localStorage.setItem("yourMesocycles",mesocycleForm)
+
+    const mesocycle = getInputValues(containerNewMesocycle,"new_mesocycle_")
+    const total_microcycle = parseInt(mesocycle.total_microcycle)
+    const sessions_microcycle = parseInt(mesocycle.sessions_microcycle)
+
+    mesocycle.exercises = reduceOptionExercises(getInputValues(containerNewMesocyclePage2,undefined,true))
+    delete mesocycle.total_microcycle
+    delete mesocycle.sessions_microcycle
+
+    mesocycle.microcycles = []
+
+    const structure = []
+    switch(mesocycle.structure){
+        case "fullbody":
+            structure.push("fullbody")
+        break
+        case "upper_lower":
+            structure.push("upper")
+            structure.push("lower")
+        break
+        case "push_pull_legs":
+            structure.push("push")
+            structure.push("pull")
+            structure.push("legs")
+        break
+        case "weider":
+            structure.push("chest")
+            structure.push("back")
+            structure.push("legs")
+            structure.push("shoulders")
+            structure.push("arms")
+        break
+    }
+    for(let indexTotalMicrocycle = 0 ; indexTotalMicrocycle < total_microcycle ; indexTotalMicrocycle++){
+        const microcycle = {}
+        const intensity = 100 //TO-DO: CALCULAR INTENSIDAD SEGÚN OBJETIVOS
+        const rir = 4 //CALCULAR RIR SEGÚN OBJETIVOS
+        const rpe = 5 //CALCULAR RPE SEGÚN OBJETIVOS
+        const sets = 4 //CALCULAR SETS SEGÚN OBJETIVOS
+        const reps = 6 //CALCULAR REPS SEGÚN OBJETIVOS
+        for(let indexSessionsMicrocycle = 0 ; indexSessionsMicrocycle < sessions_microcycle ; indexSessionsMicrocycle++){
+            const session = microcycle[indexSessionsMicrocycle] = {}
+            session.structure = structure[indexSessionsMicrocycle % structure.length]
+            session.intensity = intensity
+            session.rir = rir
+            session.rpe = rpe
+            session.sets = sets
+            session.reps = reps
+            session.exercises = Object.keys(mesocycle.exercises) //TO-DO: ASIGNAR EJERCICIOS A CADA SESIÓN SEGÚN ESTRUCTURA
+            session.done = false
+        }
+        mesocycle.microcycles.push(microcycle)
+    }
+
+    console.log({mesocycle},"sessions_microcycle:",sessions_microcycle,"total_microcycle:",total_microcycle)
+
+    localStorage.setItem("yourMesocycles",JSON.stringify([...yourMesocycles,mesocycle]))
+
+    showContainer(containerYourMesocycles)
 }

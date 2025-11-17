@@ -4,7 +4,7 @@
         "muscle": "biceps",
         "category": "pull",
         "equipment": ["barbell", "dumbbell", "machine", "cable", "band"],
-        "position": ["lying", "incline", "stand", "seated"],
+        "position": ["lying", "inclined", "stand", "seated"],
         "measurement": ["reps", "time"]
     },
     {
@@ -60,7 +60,7 @@
         "muscle": "chest",
         "category": "push",
         "equipment": ["multipower", "barbell", "dumbbell", "machine", "cable", "band"],
-        "position": ["flat", "incline", "decline"],
+        "position": ["flat", "inclined", "declined"],
         "measurement": ["reps", "time"]
     },
     {
@@ -68,7 +68,7 @@
         "muscle": "chest",
         "category": "push",
         "equipment": ["dumbbell", "machine", "cable", "band"],
-        "position": ["flat", "incline", "decline", "stand", "seated"],
+        "position": ["flat", "inclined", "declined", "stand", "seated"],
         "measurement": ["reps", "time"]
     },
     {
@@ -76,7 +76,7 @@
         "muscle": "shoulders",
         "category": "push",
         "equipment": ["multipower", "barbell", "dumbbell", "machine", "cable", "band"],
-        "position": ["incline", "stand", "seated"],
+        "position": ["inclined", "stand", "seated"],
         "measurement": ["reps", "time"]
     },
     {
@@ -100,7 +100,7 @@
         "muscle": "triceps",
         "category": "push",
         "equipment": ["multipower", "barbell", "dumbbell", "machine", "cable", "bodyweight", "band"],
-        "position": ["flat", "incline", "decline", "stand", "seated"],
+        "position": ["flat", "inclined", "declined", "stand", "seated"],
         "measurement": ["reps", "time"]
     },
     {
@@ -148,7 +148,7 @@
         "muscle": "quadriceps",
         "category": "legs",
         "equipment": ["machine"],
-        "position": ["incline", "decline", "seated"],
+        "position": ["inclined", "declined", "seated"],
         "measurement": ["reps", "time"]
     },
     {
@@ -164,7 +164,7 @@
         "muscle": "abs",
         "category": "core",
         "equipment": ["dumbbell", "machine", "bodyweight", "band"],
-        "position": ["flat", "incline", "decline", "seated"],
+        "position": ["flat", "inclined", "declined", "seated"],
         "measurement": ["reps", "time"]
     },
     {
