@@ -630,11 +630,8 @@ function newMesocycle(){
     }
     for(let indexTotalMicrocycle = 0 ; indexTotalMicrocycle < total_microcycle ; indexTotalMicrocycle++){
         const microcycle = {}
-        const intensity = 100 //TO-DO: CALCULAR INTENSIDAD SEGÚN OBJETIVOS
-        const rir = 4 //CALCULAR RIR SEGÚN OBJETIVOS
-        const rpe = 5 //CALCULAR RPE SEGÚN OBJETIVOS
-        const sets = 4 //CALCULAR SETS SEGÚN OBJETIVOS
-        const reps = 6 //CALCULAR REPS SEGÚN OBJETIVOS
+        const [intensity, rir, rpe, sets, reps] = getDataMicrocycle([indexTotalMicrocycle,total_microcycle],mesocycle.structure)
+
         for(let indexSessionsMicrocycle = 0 ; indexSessionsMicrocycle < sessions_microcycle ; indexSessionsMicrocycle++){
             const session = microcycle[indexSessionsMicrocycle] = {}
             session.structure = structure[indexSessionsMicrocycle % structure.length]
@@ -654,4 +651,16 @@ function newMesocycle(){
     localStorage.setItem("yourMesocycles",JSON.stringify([...yourMesocycles,mesocycle]))
 
     showContainer(containerYourMesocycles)
+}
+
+function getDataMicrocycle(arrayActualTotalMicrocycle,structure){
+    let intensity = 100
+    let rir = 4
+    let rpe = 5
+    let sets = 4
+    let reps = 6
+
+    //TO-DO: SWITCH CALCULANDO VALORES REALES
+
+    return intensity,rir,rpe,sets,reps
 }
