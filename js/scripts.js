@@ -599,6 +599,7 @@ function newMesocycle(){
     const mesocycle = getInputValues(containerNewMesocycle,"new_mesocycle_")
     const total_microcycle = parseInt(mesocycle.total_microcycle)
     const sessions_microcycle = parseInt(mesocycle.sessions_microcycle)
+    const objective = mesocycle.objective
 
     mesocycle.exercises = reduceOptionExercises(getInputValues(containerNewMesocyclePage2,undefined,true))
     delete mesocycle.total_microcycle
@@ -630,7 +631,7 @@ function newMesocycle(){
     }
     for(let indexTotalMicrocycle = 0 ; indexTotalMicrocycle < total_microcycle ; indexTotalMicrocycle++){
         const microcycle = {}
-        const [intensity, rir, rpe, sets, reps] = getDataMicrocycle([indexTotalMicrocycle,total_microcycle],mesocycle.structure)
+        const [intensity, rir, rpe, sets, reps] = getDataMicrocycle([indexTotalMicrocycle,total_microcycle],objective)
 
         for(let indexSessionsMicrocycle = 0 ; indexSessionsMicrocycle < sessions_microcycle ; indexSessionsMicrocycle++){
             const session = microcycle[indexSessionsMicrocycle] = {}
@@ -653,14 +654,118 @@ function newMesocycle(){
     showContainer(containerYourMesocycles)
 }
 
-function getDataMicrocycle(arrayActualTotalMicrocycle,structure){
-    let intensity = 100
-    let rir = 4
-    let rpe = 5
-    let sets = 4
-    let reps = 6
+function getDataMicrocycle(arrayActualTotalMicrocycle,objective){
+    const intensityMinMax = [60,95]
+    const rirMinMax = [4,0]
+    const rpeMinMax = [5,10]
+    const setsMinMax = [3,6]
+    const repsMinMax = [6,3]
 
-    //TO-DO: SWITCH CALCULANDO VALORES REALES
+    switch(objective){ //TO-DO: AJUSTAR VALORES REALES
+        case "strength":
+            intensityMinMax[0] = 60
+            intensityMinMax[1] = 95
+
+            rirMinMax[0] = 4
+            rirMinMax[1] = 0
+
+            rpeMinMax[0] = 7
+            rpeMinMax[1] = 10
+
+            setsMinMax[0] = 4
+            setsMinMax[1] = 6
+
+            repsMinMax[0] = 6
+            repsMinMax[1] = 3
+        break
+        case "hypertrophy":
+            intensityMinMax[0] = 50
+            intensityMinMax[1] = 80
+
+            rirMinMax[0] = 3
+            rirMinMax[1] = 1
+
+            rpeMinMax[0] = 6
+            rpeMinMax[1] = 9
+
+            setsMinMax[0] = 3
+            setsMinMax[1] = 5
+
+            repsMinMax[0] = 12
+            repsMinMax[1] = 8
+        break
+        case "endurance":
+            intensityMinMax[0] = 40
+            intensityMinMax[1] = 70
+
+            rirMinMax[0] = 5
+            rirMinMax[1] = 2
+
+            rpeMinMax[0] = 5
+            rpeMinMax[1] = 8
+
+            setsMinMax[0] = 2
+            setsMinMax[1] = 4
+
+            repsMinMax[0] = 16
+            repsMinMax[1] = 10
+        break
+        case "definition":
+            intensityMinMax[0] = 40
+            intensityMinMax[1] = 70
+
+            rirMinMax[0] = 5
+            rirMinMax[1] = 2
+
+            rpeMinMax[0] = 5
+            rpeMinMax[1] = 8
+
+            setsMinMax[0] = 2
+            setsMinMax[1] = 4
+
+            repsMinMax[0] = 16
+            repsMinMax[1] = 10
+        break
+        case "maintenance":
+            intensityMinMax[0] = 40
+            intensityMinMax[1] = 70
+
+            rirMinMax[0] = 5
+            rirMinMax[1] = 2
+
+            rpeMinMax[0] = 5
+            rpeMinMax[1] = 8
+
+            setsMinMax[0] = 2
+            setsMinMax[1] = 4
+
+            repsMinMax[0] = 16
+            repsMinMax[1] = 10
+        break
+        case "bilbo":
+            intensityMinMax[0] = 40
+            intensityMinMax[1] = 70
+
+            rirMinMax[0] = 5
+            rirMinMax[1] = 2
+
+            rpeMinMax[0] = 5
+            rpeMinMax[1] = 8
+
+            setsMinMax[0] = 2
+            setsMinMax[1] = 4
+
+            repsMinMax[0] = 16
+            repsMinMax[1] = 10
+        break
+    }
+
+    //TO-DO: No siempre se querrá dividir entre 2 en el deload
+    const intensity = Math.ceil(arrayActualTotalMicrocycle[0] === arrayActualTotalMicrocycle[1] ? intensityMinMax[1] / 2 : intensityMinMax[0] + arrayActualTotalMicrocycle[0]/(arrayActualTotalMicrocycle[1] - 1) * (intensityMinMax[1] - intensityMinMax[0]))
+    const rir = Math.ceil(arrayActualTotalMicrocycle[0] === arrayActualTotalMicrocycle[1] ? rirMinMax[1] / 2 : rirMinMax[0] + arrayActualTotalMicrocycle[0]/(arrayActualTotalMicrocycle[1] - 1) * (rirMinMax[1] - rirMinMax[0]))
+    const rpe = Math.ceil(arrayActualTotalMicrocycle[0] === arrayActualTotalMicrocycle[1] ? rpeMinMax[1] / 2 : rpeMinMax[0] + arrayActualTotalMicrocycle[0]/(arrayActualTotalMicrocycle[1] - 1) * (rpeMinMax[1] - rpeMinMax[0]))
+    const sets = Math.ceil(arrayActualTotalMicrocycle[0] === arrayActualTotalMicrocycle[1] ? setsMinMax[1] / 2 : setsMinMax[0] + arrayActualTotalMicrocycle[0]/(arrayActualTotalMicrocycle[1] - 1) * (setsMinMax[1] - setsMinMax[0]))
+    const reps = Math.ceil(arrayActualTotalMicrocycle[0] === arrayActualTotalMicrocycle[1] ? repsMinMax[1] / 2 : repsMinMax[0] + arrayActualTotalMicrocycle[0]/(arrayActualTotalMicrocycle[1] - 1) * (repsMinMax[1] - repsMinMax[0]))
 
     return intensity,rir,rpe,sets,reps
 }
