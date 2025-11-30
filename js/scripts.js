@@ -33,7 +33,7 @@ const containerYourMesocycles = document.querySelector("#your_mesocycles")
 const containerNewMesocycle = document.querySelector("#new_mesocycle")
 const containerNewMesocyclePage2 = document.querySelector("#new_mesocycle_page2")
 
-const yourMesocycles = getYourMesocycles()
+let yourMesocycles = getYourMesocycles()
 
 console.log({exercises})
 console.log({muscles})
@@ -50,6 +50,7 @@ init()
 function init(){
     loadExercises()
     setLanguage(getLanguage())
+    updateYourMesocycles()
     setEvents()
 }
 
@@ -505,7 +506,7 @@ function setEvents(){
                     return
                 }
             break
-            case "upper_lower":
+            case "upper-lower":
                 if(options.sessions_microcycle < 2){
                     alert(translate("error_upperLower_min_sessions"))
                     return
@@ -515,7 +516,7 @@ function setEvents(){
                     return
                 }
             break
-            case "push_pull_legs":
+            case "push-pull-legs":
                 if(options.sessions_microcycle < 3){
                     alert(translate("error_pushPullLegs_min_sessions"))
                     return
@@ -612,11 +613,11 @@ function newMesocycle(){
         case "fullbody":
             structure.push("fullbody")
         break
-        case "upper_lower":
+        case "upper-lower":
             structure.push("upper")
             structure.push("lower")
         break
-        case "push_pull_legs":
+        case "push-pull-legs":
             structure.push("push")
             structure.push("pull")
             structure.push("legs")
@@ -631,7 +632,7 @@ function newMesocycle(){
     }
     for(let indexTotalMicrocycle = 0 ; indexTotalMicrocycle < total_microcycle ; indexTotalMicrocycle++){
         const microcycle = {}
-        const [intensity, rir, rpe, sets, reps] = getDataMicrocycle([indexTotalMicrocycle,total_microcycle],objective)
+        const [intensity, rir, rpe, sets, reps] = getDataMicrocycle([indexTotalMicrocycle+1,total_microcycle],objective)
 
         for(let indexSessionsMicrocycle = 0 ; indexSessionsMicrocycle < sessions_microcycle ; indexSessionsMicrocycle++){
             const session = microcycle[indexSessionsMicrocycle] = {}
@@ -661,6 +662,12 @@ function getDataMicrocycle(arrayActualTotalMicrocycle,objective){
     const setsMinMax = [3,6]
     const repsMinMax = [6,3]
 
+    const calculeValues = (minMax)=>{
+        //TO-DO: No siempre se querrá dividir entre 2 en el deload
+        //TO-DO: REVISAR CÁLCULO DEL DELAOD
+        return Math.ceil(arrayActualTotalMicrocycle[0] === arrayActualTotalMicrocycle[1] ? minMax[1] / 2 : minMax[0] + (arrayActualTotalMicrocycle[0] - 1)/(arrayActualTotalMicrocycle[1] - 2) * (minMax[1] - minMax[0]))
+    }
+
     switch(objective){ //TO-DO: AJUSTAR VALORES REALES
         case "strength":
             intensityMinMax[0] = 60
@@ -673,7 +680,7 @@ function getDataMicrocycle(arrayActualTotalMicrocycle,objective){
             rpeMinMax[1] = 10
 
             setsMinMax[0] = 4
-            setsMinMax[1] = 6
+            setsMinMax[1] = 4
 
             repsMinMax[0] = 6
             repsMinMax[1] = 3
@@ -688,8 +695,8 @@ function getDataMicrocycle(arrayActualTotalMicrocycle,objective){
             rpeMinMax[0] = 6
             rpeMinMax[1] = 9
 
-            setsMinMax[0] = 3
-            setsMinMax[1] = 5
+            setsMinMax[0] = 5
+            setsMinMax[1] = 4
 
             repsMinMax[0] = 12
             repsMinMax[1] = 8
@@ -760,12 +767,37 @@ function getDataMicrocycle(arrayActualTotalMicrocycle,objective){
         break
     }
 
-    //TO-DO: No siempre se querrá dividir entre 2 en el deload
-    const intensity = Math.ceil(arrayActualTotalMicrocycle[0] === arrayActualTotalMicrocycle[1] ? intensityMinMax[1] / 2 : intensityMinMax[0] + arrayActualTotalMicrocycle[0]/(arrayActualTotalMicrocycle[1] - 1) * (intensityMinMax[1] - intensityMinMax[0]))
-    const rir = Math.ceil(arrayActualTotalMicrocycle[0] === arrayActualTotalMicrocycle[1] ? rirMinMax[1] / 2 : rirMinMax[0] + arrayActualTotalMicrocycle[0]/(arrayActualTotalMicrocycle[1] - 1) * (rirMinMax[1] - rirMinMax[0]))
-    const rpe = Math.ceil(arrayActualTotalMicrocycle[0] === arrayActualTotalMicrocycle[1] ? rpeMinMax[1] / 2 : rpeMinMax[0] + arrayActualTotalMicrocycle[0]/(arrayActualTotalMicrocycle[1] - 1) * (rpeMinMax[1] - rpeMinMax[0]))
-    const sets = Math.ceil(arrayActualTotalMicrocycle[0] === arrayActualTotalMicrocycle[1] ? setsMinMax[1] / 2 : setsMinMax[0] + arrayActualTotalMicrocycle[0]/(arrayActualTotalMicrocycle[1] - 1) * (setsMinMax[1] - setsMinMax[0]))
-    const reps = Math.ceil(arrayActualTotalMicrocycle[0] === arrayActualTotalMicrocycle[1] ? repsMinMax[1] / 2 : repsMinMax[0] + arrayActualTotalMicrocycle[0]/(arrayActualTotalMicrocycle[1] - 1) * (repsMinMax[1] - repsMinMax[0]))
+    const intensity = calculeValues(intensityMinMax)
+    const rir = calculeValues(rirMinMax)
+    const rpe = calculeValues(rpeMinMax)
+    const sets = calculeValues(setsMinMax)
+    const reps = calculeValues(repsMinMax)
 
-    return intensity,rir,rpe,sets,reps
+    return [intensity,rir,rpe,sets,reps]
+}
+
+function updateYourMesocycles(){
+    //TO-DO: ACTUALIZAR LA LISTA DE MESOCICLOS DEL USUARIO
+    const mesocyclesList = containerYourMesocycles.querySelector("#mesocycles_list")
+
+    yourMesocycles = getYourMesocycles()
+
+    mesocyclesList.innerHTML = ""
+
+    for(let indexYourMesocycles = 0 ; indexYourMesocycles < yourMesocycles.length ; indexYourMesocycles++){
+        const mesocycle = yourMesocycles[indexYourMesocycles]
+        //TO-DO: OBTENER MICROCICLO ACTUAL, SESIÓN ACTUAL, ETC...
+
+        console.log({mesocycle})
+
+        mesocyclesList.insertAdjacentHTML(
+            "beforeend",
+            `<div class="mesocycle">
+                <h2>${mesocycle.name}</h2>
+                <p><span translation="text|mesocycle_structure">${translate("mesocycle_structure")}</span>: <span translation="text|mesocycle_structure_${mesocycle.structure}">${translate(`mesocycle_structure_${mesocycle.structure}`)}</span></p>
+                <p><span translation="text|mesocycle_objective">${translate("mesocycle_objective")}</span>: <span translation="text|mesocycle_objective_${mesocycle.objective}">${translate(`mesocycle_objective_${mesocycle.objective}`)}</span></p>
+                <p><span translation="text|total_microcycle">${translate("total_microcycle")}</span>: ${mesocycle.microcycles.length}</p>
+            </div>`
+        )
+    }
 }
